@@ -99,9 +99,17 @@ ExternalProject_Execute(${proj} \"build\" make)
 
     set(VP9_LIBRARY_DIR "${EP_SOURCE_DIR}/${_library_subdir}")
 
+    if(BUILD_LOCAL)
+      set(url ${EP_LOCAL_PATH}bzip2-master.zip)
+      set(md5 d124f3c1a70572fb6dcc361c0aa4b39d)
+    else()
+      set(url ${_download_url})
+      set(md5 d124f3c1a70572fb6dcc361c0aa4b39d)
+    endif(BUILD_LOCAL)
+
     ExternalProject_Add(VP9
-      URL ${_download_url}
-      URL_MD5 d124f3c1a70572fb6dcc361c0aa4b39d
+      URL ${url}
+      URL_MD5 ${md5}
       DOWNLOAD_DIR ${CMAKE_BINARY_DIR}
       SOURCE_DIR ${EP_SOURCE_DIR}
       CONFIGURE_COMMAND ""

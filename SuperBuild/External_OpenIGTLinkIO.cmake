@@ -50,10 +50,18 @@ if(NOT DEFINED OpenIGTLinkIO_DIR AND NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj
     )
   endif()
 
+  if(BUILD_LOCAL)
+    set(soucePath URL "${EP_LOCAL_PATH}OpenIGTLinkIO-master.zip")
+    set(verifyCode URL_MD5 "0535d033302ef2b152980ca7bcb35071")
+  else()
+    set(soucePath GIT_REPOSITORY "${${CMAKE_PROJECT_NAME}_${proj}_GIT_REPOSITORY}")
+    set(verifyCode GIT_TAG "${${CMAKE_PROJECT_NAME}_${proj}_GIT_TAG}")
+  endif(BUILD_LOCAL)
+
   ExternalProject_Add(${proj}
     ${${proj}_EP_ARGS}
-    GIT_REPOSITORY ${${CMAKE_PROJECT_NAME}_${proj}_GIT_REPOSITORY}
-    GIT_TAG ${${CMAKE_PROJECT_NAME}_${proj}_GIT_TAG}
+    ${soucePath}
+    ${verifyCode}
     SOURCE_DIR "${EP_SOURCE_DIR}"
     BINARY_DIR "${EP_BINARY_DIR}"
     CMAKE_CACHE_ARGS 

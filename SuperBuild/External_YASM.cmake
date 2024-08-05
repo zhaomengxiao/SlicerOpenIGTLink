@@ -47,11 +47,19 @@ if(NOT DEFINED YASM_DIR AND NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
 
   set(EP_SOURCE_DIR ${CMAKE_BINARY_DIR}/${proj})
   set(EP_BINARY_DIR ${CMAKE_BINARY_DIR}/${proj}-bin)
-
+  
+  if(BUILD_LOCAL)
+    set(soucePath URL "${EP_LOCAL_PATH}yasm-master.zip")
+    set(verifyCode URL_MD5 "6b2b5d04c7e6135034064ec6f36be138")
+  else()
+    set(soucePath GIT_REPOSITORY "${${CMAKE_PROJECT_NAME}_${proj}_GIT_REPOSITORY}")
+    set(verifyCode GIT_TAG "${${CMAKE_PROJECT_NAME}_${proj}_GIT_TAG}")
+  endif(BUILD_LOCAL)
+  
   ExternalProject_Add(${proj}
     ${${proj}_EP_ARGS}
-    GIT_REPOSITORY "${${CMAKE_PROJECT_NAME}_${proj}_GIT_REPOSITORY}"
-    GIT_TAG "${${CMAKE_PROJECT_NAME}_${proj}_GIT_TAG}"
+    ${soucePath}
+    ${verifyCode}
     SOURCE_DIR ${EP_SOURCE_DIR}
     BINARY_DIR ${EP_BINARY_DIR}
     CMAKE_CACHE_ARGS
