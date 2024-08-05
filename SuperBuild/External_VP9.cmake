@@ -100,7 +100,7 @@ ExternalProject_Execute(${proj} \"build\" make)
     set(VP9_LIBRARY_DIR "${EP_SOURCE_DIR}/${_library_subdir}")
 
     if(BUILD_LOCAL)
-      set(url ${EP_LOCAL_PATH}bzip2-master.zip)
+      set(url ${EP_LOCAL_PATH}libvpx_v1.8.2_msvc16.zip)
       set(md5 d124f3c1a70572fb6dcc361c0aa4b39d)
     else()
       set(url ${_download_url})
